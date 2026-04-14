@@ -14,12 +14,13 @@ export default function ProjectDetail() {
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
 
+    // GET — charger les données au montage
     useEffect(() => {
         api.get(`/projects/${id}`)
-        .then(res => setProject(res.data))
-        .catch(() => navigate('/dashboard'))
-        .finally(() => setLoading(false));
-    }, []); // BUG 1
+          .then(res => setProject(res.data))
+          .catch(() => navigate('/dashboard'))
+          .finally(() => setLoading(false));
+      }, [id, navigate]);
 
     if (loading) return <div className={styles.loading}>Chargement...</div>;
     if (!project) return null;
